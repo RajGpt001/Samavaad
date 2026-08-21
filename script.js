@@ -301,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     hands.setOptions({
         maxNumHands: 1, // Track 1 hand for spelling
-        modelComplexity: 1,
+        modelComplexity: 0, // Set to 0 for better performance on mobile phones
         minDetectionConfidence: 0.6,
         minTrackingConfidence: 0.6
     });
