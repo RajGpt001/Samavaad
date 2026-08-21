@@ -312,15 +312,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const isUpright = landmarks[0].y > landmarks[9].y;
         if (!isUpright) return null;
 
-        // Fingers open/closed logic (comparing tip y to pip y)
-        const isIndexOpen = landmarks[8].y < landmarks[6].y;
-        const isMiddleOpen = landmarks[12].y < landmarks[10].y;
-        const isRingOpen = landmarks[16].y < landmarks[14].y;
-        const isPinkyOpen = landmarks[20].y < landmarks[18].y;
+        // Check which fingers are open by comparing Tip (8,12,16,20) to Knuckle/MCP (5,9,13,17)
+        // This is much more robust for the lightweight mobile model than comparing to PIP joints
+        let isIndexOpen = landmarks[8].y < landmarks[5].y;
+        let isMiddleOpen = landmarks[12].y < landmarks[9].y;
+        let isRingOpen = landmarks[16].y < landmarks[13].y;
+        let isPinkyOpen = landmarks[20].y < landmarks[17].y;
         
-        // Thumb logic
-        const thumbTip = landmarks[4];
-        const isThumbOut = getDist(thumbTip, landmarks[5]) > 0.1; // thumb spread outward
+        // Check thumb: compare tip (4) distance from center of hand (9) vs knuckle (2)
+        // Since hands can be left or right, we check horizontal distance absolute value
+        let thumbDist = Math.abs(landmarks[4].x - landmarks[9].x);
+        let isThumbOut = thumbDist > 0.1;
         
         const openFingersCount = (isIndexOpen?1:0) + (isMiddleOpen?1:0) + (isRingOpen?1:0) + (isPinkyOpen?1:0);
 
