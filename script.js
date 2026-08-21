@@ -300,54 +300,105 @@ document.addEventListener('DOMContentLoaded', () => {
     }});
 
     hands.setOptions({
-        maxNumHands: 1, // Track 1 hand for spelling
-        modelComplexity: 0, // Set to 0 for better performance on mobile phones
+        maxNumHands: 2, // Track up to 2 hands for ISL
+        modelComplexity: 0,
         minDetectionConfidence: 0.6,
         minTrackingConfidence: 0.6
     });
 
-    // Custom heuristic to classify 1-handed ISL Alphabets based on the chart
-    function classifyISLAlphabet(landmarks) {
-        // Only classify if hand is generally upright
-        const isUpright = landmarks[0].y > landmarks[9].y;
-        if (!isUpright) return null;
+    // Helper function to calculate distance between two landmarks
+    function getDist(p1, p2) {
+        return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
+    }
 
-        // Check which fingers are open by comparing Tip (8,12,16,20) to Knuckle/MCP (5,9,13,17)
-        // This is much more robust for the lightweight mobile model than comparing to PIP joints
-        let isIndexOpen = landmarks[8].y < landmarks[5].y;
-        let isMiddleOpen = landmarks[12].y < landmarks[9].y;
-        let isRingOpen = landmarks[16].y < landmarks[13].y;
-        let isPinkyOpen = landmarks[20].y < landmarks[17].y;
-        
-        // Check thumb: compare tip (4) distance from center of hand (9) vs knuckle (2)
-        // Since hands can be left or right, we check horizontal distance absolute value
-        let thumbDist = Math.abs(landmarks[4].x - landmarks[9].x);
-        let isThumbOut = thumbDist > 0.1;
-        
-        const openFingersCount = (isIndexOpen?1:0) + (isMiddleOpen?1:0) + (isRingOpen?1:0) + (isPinkyOpen?1:0);
+    // Custom heuristic to classify ISL Alphabets based on 1 or 2 hands
+    function classifyISLAlphabet(multiHandLandmarks) {
+        if (!multiHandLandmarks || multiHandLandmarks.length === 0) return null;
 
-        // 'S' - Closed fist, thumb wrapped across front
-        if (openFingersCount === 0 && !isThumbOut) {
-            return "S";
-        }
-        
-        // 'D' or 'L' (1 finger open)
-        if (openFingersCount === 1 && isIndexOpen) {
-            if (isThumbOut) {
-                return "L"; // Index open, thumb out -> L
-            } else {
-                return "D"; // Index open, thumb tucked -> D
+        // --- TWO HANDED SIGNS ---
+        if (multiHandLandmarks.length === 2) {
+            const h1 = multiHandLandmarks[0];
+            const h2 = multiHandLandmarks[1];
+            
+            // Check if both hands are generally upright
+            const isH1Upright = h1[0].y > h1[9].y;
+            const isH2Upright = h2[0].y > h2[9].y;
+            
+            // 'X' - Wrists crossed
+            const wristDist = getDist(h1[0], h2[0]);
+            if (wristDist < 0.15 && isH1Upright && isH2Upright) {
+                return "X";
             }
+
+            // 'A' - Fingertips touching at top (pyramid)
+            const indexTipDist = getDist(h1[8], h2[8]);
+            const middleTipDist = getDist(h1[12], h2[12]);
+            if (indexTipDist < 0.1 && middleTipDist < 0.1 && isH1Upright && isH2Upright) {
+                return "A";
+            }
+            
+            // 'B' - Sides of hands touching, palms facing
+            // We approximate this by checking if pinky bases (17) or index bases (5) are close
+            const baseDist1 = getDist(h1[17], h2[17]);
+            const baseDist2 = getDist(h1[5], h2[5]);
+            if (baseDist1 < 0.15 || baseDist2 < 0.15) {
+                return "B";
+            }
+
+            return null; // Don't fall back to 1-handed if 2 hands are visible but no match
         }
-        
-        // 'V' or 'U' (2 fingers open)
-        if (openFingersCount === 2 && isIndexOpen && isMiddleOpen) {
-            // Check distance between index and middle fingertip
-            const distIndexMiddle = getDist(landmarks[8], landmarks[12]);
-            if (distIndexMiddle > 0.05) {
-                return "V"; // Fingers spread apart -> V
-            } else {
-                return "U"; // Fingers together side-by-side -> U
+
+        // --- ONE HANDED SIGNS ---
+        if (multiHandLandmarks.length === 1) {
+            const landmarks = multiHandLandmarks[0];
+            
+            const isUpright = landmarks[0].y > landmarks[9].y;
+            if (!isUpright) return null;
+
+            let isIndexOpen = landmarks[8].y < landmarks[5].y;
+            let isMiddleOpen = landmarks[12].y < landmarks[9].y;
+            let isRingOpen = landmarks[16].y < landmarks[13].y;
+            let isPinkyOpen = landmarks[20].y < landmarks[17].y;
+            
+            let thumbDist = Math.abs(landmarks[4].x - landmarks[9].x);
+            let isThumbOut = thumbDist > 0.1;
+            
+            const openFingersCount = (isIndexOpen?1:0) + (isMiddleOpen?1:0) + (isRingOpen?1:0) + (isPinkyOpen?1:0);
+
+            // 'O' - fingertips touching thumb
+            const thumbToIndex = getDist(landmarks[4], landmarks[8]);
+            const thumbToMiddle = getDist(landmarks[4], landmarks[12]);
+            if (openFingersCount === 0 && thumbToIndex < 0.08 && thumbToMiddle < 0.08) {
+                return "O";
+            }
+
+            // 'C' - curved shape (fingers somewhat open, thumb out, distance between thumb and index is moderate)
+            if (isIndexOpen && isThumbOut && thumbToIndex > 0.1 && thumbToIndex < 0.3) {
+                return "C";
+            }
+
+            // 'S' - Closed fist, thumb wrapped across front
+            if (openFingersCount === 0 && !isThumbOut) {
+                return "S";
+            }
+            
+            // 'D' or 'L' (1 finger open)
+            if (openFingersCount === 1 && isIndexOpen) {
+                if (isThumbOut) {
+                    return "L";
+                } else {
+                    return "D";
+                }
+            }
+            
+            // 'V' or 'U' (2 fingers open)
+            if (openFingersCount === 2 && isIndexOpen && isMiddleOpen) {
+                const distIndexMiddle = getDist(landmarks[8], landmarks[12]);
+                if (distIndexMiddle > 0.05) {
+                    return "V";
+                } else {
+                    return "U";
+                }
             }
         }
 
@@ -363,7 +414,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleCameraSign(letter) {
-        // Just append the letter and speak it
         continuousResult.innerHTML += letter;
         speakText(letter);
     }
@@ -377,19 +427,19 @@ document.addEventListener('DOMContentLoaded', () => {
         canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
         
         if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
-            const landmarks = results.multiHandLandmarks[0];
             
-            // Draw skeleton
-            drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, {color: '#E3A02C', lineWidth: 3});
-            drawLandmarks(canvasCtx, landmarks, {color: '#D9614F', lineWidth: 2, radius: 3});
+            // Draw skeleton for all detected hands
+            for (const landmarks of results.multiHandLandmarks) {
+                drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, {color: '#E3A02C', lineWidth: 3});
+                drawLandmarks(canvasCtx, landmarks, {color: '#D9614F', lineWidth: 2, radius: 3});
+            }
 
             // Classify ISL Alphabet
-            const currentSign = classifyISLAlphabet(landmarks);
+            const currentSign = classifyISLAlphabet(results.multiHandLandmarks);
             
             if (currentSign) {
                 if (currentSign === lastDetectedSign) {
                     framesHeld++;
-                    // Register the sign if held for enough frames
                     if (framesHeld === HOLD_FRAMES_REQUIRED) {
                         handleCameraSign(currentSign);
                     }
