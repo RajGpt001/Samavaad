@@ -273,6 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const video = document.getElementById('video');
     const camOverlay = document.getElementById('camOverlay');
     const camStartBtn = document.getElementById('camStartBtn');
+    const camStopBtn = document.getElementById('camStopBtn');
     const clearCamBtn = document.getElementById('clearCamBtn');
     const continuousResult = document.getElementById('continuousResult');
     const canvasElement = document.getElementById('output_canvas');
@@ -474,12 +475,29 @@ document.addEventListener('DOMContentLoaded', () => {
         
         camera.start().then(() => {
             camOverlay.style.display = 'none';
+            camStartBtn.style.display = 'none';
+            camStopBtn.style.display = 'block';
         }).catch(err => {
             console.error("Camera error:", err);
             camOverlay.textContent = 'Error accessing camera';
             camOverlay.style.color = 'var(--coral)';
             camStartBtn.disabled = false;
         });
+    };
+
+    camStopBtn.onclick = () => {
+        if (camera) {
+            camera.stop();
+            camOverlay.style.display = 'flex';
+            camOverlay.textContent = 'camera off';
+            camOverlay.style.color = 'var(--ink)';
+            camStopBtn.style.display = 'none';
+            camStartBtn.style.display = 'block';
+            camStartBtn.disabled = false;
+            
+            // Clear canvas
+            canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+        }
     };
 
     clearCamBtn.onclick = () => {
