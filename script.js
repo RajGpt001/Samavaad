@@ -306,37 +306,47 @@ document.addEventListener('DOMContentLoaded', () => {
         minTrackingConfidence: 0.6
     });
 
-    // Custom heuristic to classify specific words for the pitch demo
-    function classifyPitchGesture(landmarks) {
+    // Custom heuristic to classify 1-handed ISL Alphabets based on the chart
+    function classifyISLAlphabet(landmarks) {
+        // Only classify if hand is generally upright
+        const isUpright = landmarks[0].y > landmarks[9].y;
+        if (!isUpright) return null;
+
         // Fingers open/closed logic (comparing tip y to pip y)
         const isIndexOpen = landmarks[8].y < landmarks[6].y;
         const isMiddleOpen = landmarks[12].y < landmarks[10].y;
         const isRingOpen = landmarks[16].y < landmarks[14].y;
         const isPinkyOpen = landmarks[20].y < landmarks[18].y;
         
-        // Thumb logic is harder, roughly check if tip is higher/lower than base for up/down
-        const isThumbUp = landmarks[4].y < landmarks[2].y && landmarks[4].x < landmarks[5].x;
-        const isThumbDown = landmarks[4].y > landmarks[2].y && landmarks[4].x < landmarks[5].x;
-
+        // Thumb logic
+        const thumbTip = landmarks[4];
+        const isThumbOut = getDist(thumbTip, landmarks[5]) > 0.1; // thumb spread outward
+        
         const openFingersCount = (isIndexOpen?1:0) + (isMiddleOpen?1:0) + (isRingOpen?1:0) + (isPinkyOpen?1:0);
 
-        if (openFingersCount === 0) {
-            if (isThumbUp) return "yes";
-            if (isThumbDown) return "no";
-            return "want"; // Fist
+        // 'S' - Closed fist, thumb wrapped across front
+        if (openFingersCount === 0 && !isThumbOut) {
+            return "S";
         }
         
-        if (openFingersCount === 1) {
-            if (isIndexOpen) return "water"; // Only index up
-            if (isPinkyOpen) return "hurt";  // Only pinky up
+        // 'D' or 'L' (1 finger open)
+        if (openFingersCount === 1 && isIndexOpen) {
+            if (isThumbOut) {
+                return "L"; // Index open, thumb out -> L
+            } else {
+                return "D"; // Index open, thumb tucked -> D
+            }
         }
         
-        if (openFingersCount === 2) {
-            if (isIndexOpen && isMiddleOpen) return "mother"; // Index + Middle
-        }
-        
-        if (openFingersCount === 4) {
-            return "help"; // All 4 fingers open (open palm)
+        // 'V' or 'U' (2 fingers open)
+        if (openFingersCount === 2 && isIndexOpen && isMiddleOpen) {
+            // Check distance between index and middle fingertip
+            const distIndexMiddle = getDist(landmarks[8], landmarks[12]);
+            if (distIndexMiddle > 0.05) {
+                return "V"; // Fingers spread apart -> V
+            } else {
+                return "U"; // Fingers together side-by-side -> U
+            }
         }
 
         return null;
@@ -350,33 +360,10 @@ document.addEventListener('DOMContentLoaded', () => {
         speechSynthesis.speak(utterance);
     }
 
-    function handleCameraSign(signId) {
-        // Find the sign in our array to get the uppercase label
-        const signData = SIGNS.find(s => s.id === signId);
-        if (!signData) return;
-
-        // Reset sequence if it gets too long to prevent garbage
-        if (cameraSequence.length >= 3) {
-            cameraSequence = [];
-            continuousResult.innerHTML = '';
-        }
-
-        cameraSequence.push(signId);
-        
-        // Check if the current sequence maps to a full sentence
-        const seqKey = cameraSequence.join(',');
-        
-        if (SENTENCE_MAP[seqKey]) {
-            // We found a sentence match! (e.g. water,want)
-            const sentence = SENTENCE_MAP[seqKey].out;
-            continuousResult.innerHTML = `<span style="color:var(--coral)">${sentence}</span>`;
-            speakText(sentence);
-            cameraSequence = []; // reset after sentence
-        } else {
-            // Just speak the single word
-            continuousResult.innerHTML += (continuousResult.innerHTML ? ' + ' : '') + signData.label;
-            speakText(signData.hi); // Speak the hindi word
-        }
+    function handleCameraSign(letter) {
+        // Just append the letter and speak it
+        continuousResult.innerHTML += letter;
+        speakText(letter);
     }
 
     // Step 2: Handle the results and draw Skeleton
@@ -394,8 +381,8 @@ document.addEventListener('DOMContentLoaded', () => {
             drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, {color: '#E3A02C', lineWidth: 3});
             drawLandmarks(canvasCtx, landmarks, {color: '#D9614F', lineWidth: 2, radius: 3});
 
-            // Classify continuous gesture
-            const currentSign = classifyPitchGesture(landmarks);
+            // Classify ISL Alphabet
+            const currentSign = classifyISLAlphabet(landmarks);
             
             if (currentSign) {
                 if (currentSign === lastDetectedSign) {
