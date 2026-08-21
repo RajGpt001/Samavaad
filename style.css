@@ -463,6 +463,7 @@ footer {
   object-fit: cover;
   display: block;
   transform: scaleX(-1); /* Mirror effect */
+  filter: brightness(1.3) contrast(1.1); /* Brighten the video feed for dark phone cameras */
 }
 
 .output-canvas {
