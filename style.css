@@ -1,0 +1,537 @@
+:root {
+  --ink: #12203A;
+  --paper: #F6F3EC;
+  --white: #FFFDF8;
+  --gold: #E3A02C;
+  --coral: #D9614F;
+  --thread-blue: #3A6E8F;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--ink);
+  color: var(--paper);
+  font-family: system-ui, -apple-system, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  align-items: center;
+}
+
+h1, h2, h3, h4, h5, h6, .serif {
+  font-family: Georgia, serif;
+}
+
+header {
+  text-align: center;
+  padding: 2rem 1rem;
+  max-width: 800px;
+}
+
+.eyebrow {
+  color: var(--gold);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.title {
+  font-size: 4rem;
+  margin: 0.5rem 0;
+  color: var(--white);
+}
+
+.title .vaad {
+  color: var(--coral);
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: var(--paper);
+  opacity: 0.9;
+  margin-bottom: 2rem;
+}
+
+.flow-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--thread-blue);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.75rem 1.5rem;
+  border-radius: 2rem;
+}
+
+.arrow {
+  color: var(--gold);
+  margin: 0 0.25rem;
+}
+
+.tab-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem;
+  border-radius: 3rem;
+  margin: 2rem 1rem;
+}
+
+.tab-btn {
+  background: transparent;
+  color: var(--paper);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.tab-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.tab-btn.active {
+  background: var(--white);
+  color: var(--ink);
+  font-weight: bold;
+}
+
+main {
+  flex: 1;
+  width: 100%;
+  max-width: 800px;
+  padding: 0 1rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel {
+  display: none;
+  background: var(--white);
+  color: var(--ink);
+  border-radius: 1rem;
+  padding: 2rem;
+  min-height: 300px;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.panel.active {
+  display: block;
+  animation: fadeSlideUp 0.4s ease forwards;
+}
+
+@keyframes fadeSlideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  font-size: 0.85rem;
+  color: var(--paper);
+  opacity: 0.6;
+}
+
+@media (max-width: 600px) {
+  .title {
+    font-size: 3rem;
+  }
+  .flow-row {
+    font-size: 0.8rem;
+  }
+  .tab-btn {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .title {
+    font-size: 2.5rem;
+  }
+}
+
+/* Sign to Speech Feature Styles */
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.badge {
+  background: var(--thread-blue);
+  color: var(--white);
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.panel-header h2 {
+  margin: 0;
+  color: var(--ink);
+}
+
+.panel-subtitle {
+  color: #666;
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+}
+
+.sign-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.sign-btn {
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.sign-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.sign-btn.selected {
+  background: var(--thread-blue);
+  border-color: var(--thread-blue);
+  color: var(--white);
+}
+
+.sign-label {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.sign-sub {
+  font-size: 0.75rem;
+  color: #666;
+}
+
+.sign-btn.selected .sign-sub {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.translation-area {
+  background: #fafafa;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  border: 1px solid #eee;
+}
+
+.seq-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  min-height: 2rem;
+}
+
+.chip {
+  background: var(--ink);
+  color: var(--white);
+  padding: 0.4rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  animation: fadeSlideUp 0.3s ease;
+}
+
+.output-box {
+  background: linear-gradient(135deg, #fff, #f6f8fb);
+  border: 1px solid #e0e5ed;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  min-height: 100px;
+}
+
+.hindi-out {
+  font-family: Georgia, serif;
+  font-size: 1.8rem;
+  color: var(--coral);
+  margin-bottom: 0.5rem;
+  min-height: 2.2rem;
+}
+
+.hindi-sub {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.primary-btn, .secondary-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: bold;
+  transition: opacity 0.2s;
+}
+
+.primary-btn {
+  background: var(--gold);
+  color: var(--ink);
+  flex: 1;
+}
+
+.primary-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.secondary-btn {
+  background: #e0e0e0;
+  color: var(--ink);
+}
+
+.primary-btn:not(:disabled):hover, .secondary-btn:hover {
+  opacity: 0.9;
+}
+
+/* Speech to Sign Feature Styles */
+.coral-badge {
+  background: var(--coral);
+}
+
+.mic-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  background: #fafafa;
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px dashed #ccc;
+}
+
+.mic-btn {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  background: var(--coral);
+  color: white;
+  border: none;
+  font-size: 2.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(217, 97, 79, 0.3);
+}
+
+.mic-btn:hover {
+  transform: scale(1.05);
+}
+
+.mic-btn.listening {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(217, 97, 79, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 20px rgba(217, 97, 79, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(217, 97, 79, 0);
+  }
+}
+
+.mic-hint {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.transcript-box {
+  min-height: 3rem;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--ink);
+  text-align: center;
+  width: 100%;
+}
+
+.avatar-stage {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+.stick-avatar {
+  width: 96px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stick-avatar svg {
+  width: 96px;
+  height: 120px;
+  background: #f8f9fa;
+  border-radius: 0.5rem;
+  border: 1px solid #e0e5ed;
+}
+
+.avatar-label {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: var(--thread-blue);
+  text-transform: uppercase;
+}
+
+/* Camera Feature Styles */
+.gold-badge {
+  background: var(--gold);
+  color: var(--ink);
+  font-size: 1rem;
+}
+
+.cam-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.cam-frame {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 4/3;
+  background: #000;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 4px solid var(--ink);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.cam-frame video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.output-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.cam-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(255,255,255,0.7);
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  pointer-events: none;
+}
+
+.scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--gold);
+  box-shadow: 0 0 15px 5px rgba(227, 160, 44, 0.5);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cam-frame.scanning .scan-line {
+  opacity: 1;
+  animation: scanAnim 1.4s linear;
+}
+
+@keyframes scanAnim {
+  0% { top: 0; }
+  100% { top: 100%; }
+}
+
+.result-tag {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--ink);
+  padding: 0.75rem 1.5rem;
+  border-radius: 2rem;
+  color: var(--white);
+  animation: fadeSlideUp 0.3s ease;
+  margin-top: 1rem;
+}
+
+.result-word {
+  font-size: 1.2rem;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+
+.result-conf {
+  background: var(--gold);
+  color: var(--ink);
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.85rem;
+  font-weight: bold;
+}

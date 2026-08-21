@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SamaVaad - Live Prototype</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- MediaPipe Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <header>
+        <h1 class="title serif">Sama<span class="vaad">Vaad</span></h1>
+        <p class="subtitle">A working software preview of the two-way conversation loop &mdash; before the glove, this is the brain of SamaVaad, live in your browser.</p>
+        
+        <div class="flow-row">
+            <span>ISL Sign</span>
+            <span class="arrow">&rarr;</span>
+            <span>Regional Speech</span>
+            <span class="arrow">&rarr;</span>
+            <span>Spoken Reply</span>
+            <span class="arrow">&rarr;</span>
+            <span>ISL Avatar</span>
+        </div>
+    </header>
+
+    <nav class="tab-nav">
+        <button class="tab-btn active" data-target="dir1">① Deaf &rarr; Hearing</button>
+        <button class="tab-btn" data-target="dir2">② Hearing &rarr; Deaf</button>
+        <button class="tab-btn" data-target="cam">③ Camera Sign Capture</button>
+    </nav>
+
+    <main>
+        <section id="dir1" class="panel active">
+            <div class="panel-header">
+                <span class="badge">1</span>
+                <h2>Sign to Speech</h2>
+            </div>
+            <p class="panel-subtitle">Tap signs like the glove's flex sensors would register them</p>
+            
+            <div id="signGrid" class="sign-grid"></div>
+            
+            <div class="translation-area">
+                <div id="seqRow" class="seq-row"></div>
+                <div class="output-box">
+                    <div id="hindiOut" class="hindi-out"></div>
+                    <div id="hindiSub" class="hindi-sub"></div>
+                </div>
+                <div class="action-buttons">
+                    <button id="speakBtn" class="primary-btn" disabled>🔊 Play spoken audio</button>
+                    <button id="clearBtn" class="secondary-btn">Clear</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="dir2" class="panel">
+            <div class="panel-header">
+                <span class="badge coral-badge">2</span>
+                <h2>Speech to Sign</h2>
+            </div>
+            <p class="panel-subtitle">Speak naturally &mdash; watch it simplify into ISL structure</p>
+            
+            <div class="mic-section">
+                <button id="micBtn" class="mic-btn">🎙️</button>
+                <div id="micHint" class="mic-hint">Click to start listening...</div>
+                <div id="transcript" class="transcript-box"></div>
+            </div>
+
+            <div class="translation-area">
+                <div id="islSeqRow" class="seq-row"></div>
+                <div id="avatarStage" class="avatar-stage"></div>
+            </div>
+        </section>
+
+        <section id="cam" class="panel">
+            <div class="panel-header">
+                <span class="badge gold-badge">📷</span>
+                <h2>Camera Sign Capture</h2>
+            </div>
+            <p class="panel-subtitle">Stand in frame, hold a sign, hit capture &mdash; the recognizer classifies it live</p>
+            
+            <div class="cam-container">
+                <div id="camFrame" class="cam-frame">
+                    <video id="video" autoplay playsinline muted></video>
+                    <canvas id="output_canvas" class="output-canvas"></canvas>
+                    <div id="camOverlay" class="cam-overlay">camera off</div>
+                </div>
+                
+                <div class="action-buttons" style="width: 100%; max-width: 420px; display: flex; gap: 1rem;">
+                    <button id="camStartBtn" class="primary-btn">Turn on camera</button>
+                    <button id="clearCamBtn" class="secondary-btn">Clear Text</button>
+                </div>
+
+                <div class="output-box" style="width: 100%; max-width: 420px; text-align: center;">
+                    <div style="color: #666; font-size: 0.85rem; margin-bottom: 0.5rem; text-transform: uppercase; font-weight: bold;">Recognized Sign Language</div>
+                    <div id="continuousResult" class="hindi-out" style="min-height: 2.2rem; font-family: system-ui, sans-serif; font-size: 2rem; color: var(--ink);"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        SamaVaad &middot; Offline-first architecture, simulated here for browser demo purposes
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
