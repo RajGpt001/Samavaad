@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SamaVaad - Live Prototype</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- MediaPipe Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo serif">Sama<span class="vaad">Vaad</span></a>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#how-it-works">How it Works</a>
+                <a href="#" class="nav-cta">Get the App</a>
+            </div>
+        </div>
+    </nav>
+    <header>
+        <h1 class="title serif">Sama<span class="vaad">Vaad</span></h1>
+        <p class="subtitle">A working software preview of the two-way conversation loop &mdash; before the glove, this is the brain of SamaVaad, live in your browser.</p>
+        
+        <div class="flow-row">
+            <span>ISL Sign</span>
+            <span class="arrow">&rarr;</span>
+            <span>Regional Speech</span>
+            <span class="arrow">&rarr;</span>
+            <span>Spoken Reply</span>
+            <span class="arrow">&rarr;</span>
+            <span>ISL Avatar</span>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- Informational Sections from Presentation -->
+        <section id="about" class="info-section">
+            <h2 class="serif section-title">The Communication Chasm</h2>
+            <p class="lead">A profound communication breakdown isolates 7.2 million deaf Indians inside their own homes.</p>
+            <div class="split-cards">
+                <div class="info-card">
+                    <h3>The Deaf Child</h3>
+                    <p>Expresses needs, emotions, and questions fluently in Indian Sign Language (ISL), but cannot receive spoken responses in a format they understand.</p>
+                </div>
+                <div class="info-card">
+                    <h3>The Hearing Parents</h3>
+                    <p>Speak fluently in regional Indian languages, but cannot interpret the child's distinct ISL signs.</p>
+                </div>
+            </div>
+            <div class="alert-box">
+                <strong>The Result:</strong> Fragmented communication reliant on guesswork and pointing, leading to severe impacts on emotional wellbeing, education, and basic healthcare access.
+            </div>
+        </section>
+
+        <section class="info-section">
+            <h2 class="serif section-title">The Problem with Existing Tech</h2>
+            <p class="lead">Existing assistive technologies provide one-way streets, not true conversations.</p>
+            <div class="grid-cards-3">
+                <div class="info-card">
+                    <h4>Wearable ASL Gloves</h4>
+                    <p>Built entirely for American Sign Language (ASL). They output in English and completely ignore the distinct grammar and handshapes of ISL.</p>
+                </div>
+                <div class="info-card">
+                    <h4>Speech-to-Text Apps</h4>
+                    <p>Tools like Live Transcribe require active internet and offer no return path for the deaf person to respond in sign.</p>
+                </div>
+                <div class="info-card">
+                    <h4>Camera-based AI</h4>
+                    <p>Suffer from severe lighting dependencies, background clutter issues, and significant privacy concerns.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works" class="info-section">
+            <h2 class="serif section-title">The SamaVaad Infinity Loop</h2>
+            <p class="lead">Closing the conversational gap through continuous hardware and AI integration.</p>
+            
+            <div class="split-cards">
+                <div class="info-card highlight-card">
+                    <h4>The Definition</h4>
+                    <p>SamaVaad (Equal Conversation) is a sensor-embedded wearable glove and companion application that creates a complete, bidirectional communication bridge.</p>
+                </div>
+                <div class="info-card highlight-card">
+                    <h4>The Promise</h4>
+                    <p>Each person communicates and receives information entirely in their own native language—without either needing to learn the other's.</p>
+                </div>
+            </div>
+
+            <div class="tech-box">
+                <h3 class="serif">Cross-Linguistic Grammar Bridge</h3>
+                <p>True bidirectional fluency requires a Cross-Linguistic Grammar Bridge, not mere word-swapping. Indian Sign Language has a fundamentally different grammar from spoken languages (lacks articles, tense markers, uses strict topic-comment order).</p>
+                <p>Our <strong>Seq2Seq Transformer AI Engine</strong> strips tense markers and restructures syntax rules in real-time to ensure total fluency in both directions.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        SamaVaad &middot; Offline-first architecture, simulated here for browser demo purposes
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
