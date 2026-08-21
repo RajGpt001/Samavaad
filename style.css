@@ -460,7 +460,7 @@ footer {
 .cam-frame video {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
   transform: scaleX(-1); /* Mirror effect */
   filter: brightness(1.3) contrast(1.1); /* Brighten the video feed for dark phone cameras */
@@ -472,7 +472,7 @@ footer {
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   pointer-events: none;
   transform: scaleX(-1);
 }
