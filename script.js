@@ -281,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let camera = null;
     let lastDetectedSign = null;
     let framesHeld = 0;
-    const HOLD_FRAMES_REQUIRED = 20; // Needs to hold the sign for roughly 0.6 seconds
+    const HOLD_FRAMES_REQUIRED = 5; // Lowered to make it much more responsive on mobile
     
     let cameraSequence = []; // Store the detected words to form a sentence
 
