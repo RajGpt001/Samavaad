@@ -106,40 +106,48 @@
             </div>
             <p class="panel-subtitle">Stand in frame, hold a sign, hit capture &mdash; the recognizer classifies it live</p>
             
-            <div class="cam-container">
-                <div id="camFrame" class="cam-frame">
-                    <video id="video" autoplay playsinline muted></video>
-                    <canvas id="output_canvas" class="output-canvas"></canvas>
-                    <div id="camOverlay" class="cam-overlay">camera off</div>
-                </div>
-                
-                <div class="demo-instructions" style="width: 100%; max-width: 420px; background: rgba(227, 160, 44, 0.1); border: 1px solid var(--gold); border-radius: 12px; padding: 1rem; text-align: left; margin-bottom: 1rem; font-size: 0.9rem; margin-top: 1rem;">
-                    <h4 style="margin-top:0; color: var(--gold); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">
-                        <span style="font-size: 1.2rem;">🔤</span> ISL Alphabet Demo
-                    </h4>
-                    <p style="margin-top:0; font-size: 0.8rem; color: #666; margin-bottom: 0.8rem;">Try these 1-handed Indian Sign Language alphabets:</p>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; color: var(--ink);">
-                        <div><strong>S:</strong> ✊ Closed Fist</div>
-                        <div><strong>D:</strong> ☝️ Only Index Up</div>
-                        <div><strong>L:</strong> 👈 'L' Shape (Index+Thumb)</div>
-                        <div><strong>V:</strong> ✌️ 'V' Shape (Index+Middle spread)</div>
-                        <div style="grid-column: span 2;"><strong>U:</strong> 🤞 Index+Middle together (no spread)</div>
-                    </div>
-                </div>
-
-                <div class="action-buttons" style="width: 100%; max-width: 420px; display: flex; gap: 1rem;">
-                    <button id="camStartBtn" class="btn btn-primary">Turn on camera</button>
-                    <button id="camStopBtn" class="btn btn-secondary" style="display: none;">Stop camera</button>
-                    <button id="clearCamBtn" class="btn btn-secondary">Clear Text</button>
-                </div>
-
-                <div class="output-box" style="width: 100%; max-width: 420px; text-align: center;">
-                    <div style="color: #666; font-size: 0.85rem; margin-bottom: 0.5rem; text-transform: uppercase; font-weight: bold;">Recognized Sign Language</div>
-                    <div id="continuousResult" class="hindi-out" style="min-height: 2.2rem; font-family: system-ui, sans-serif; font-size: 2rem; color: var(--text-primary);"></div>
-                    <div id="confidenceWarning" style="color: var(--coral-500); font-size: 0.85rem; height: 1.2rem; margin-top: 0.5rem; opacity: 0; transition: opacity 0.3s; font-weight: 500;">Low confidence &mdash; try again</div>
-                </div>
-            </div>
-        </section>
+            <div class="cam-container" style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 2rem; justify-content: center; align-items: flex-start; width: 100%; max-width: 1000px; margin: 0 auto;">
+                  
+                  <!-- Left Column: Camera -->
+                  <div style="flex: 1 1 400px; display: flex; flex-direction: column; align-items: center;">
+                      <div id="camFrame" class="cam-frame" style="width: 100%; margin-bottom: 1rem;">
+                          <video id="video" autoplay playsinline muted></video>
+                          <canvas id="output_canvas" class="output-canvas"></canvas>
+                          <div id="camOverlay" class="cam-overlay">camera off</div>
+                      </div>
+                      
+                      <div class="action-buttons" style="width: 100%; display: flex; gap: 1rem; justify-content: center;">
+                          <button id="camStartBtn" class="btn btn-primary" style="flex: 1;">Turn on camera</button>
+                          <button id="camStopBtn" class="btn btn-secondary" style="display: none; flex: 1;">Stop camera</button>
+                      </div>
+                  </div>
+                  
+                  <!-- Right Column: Instructions & Output -->
+                  <div style="flex: 1 1 400px; display: flex; flex-direction: column; align-items: stretch;">
+                      <div class="demo-instructions card" style="background: rgba(227, 160, 44, 0.05); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 12px; padding: 1.5rem; text-align: left; margin-bottom: 1.5rem; font-size: 0.95rem;">
+                          <h4 class="text-h3" style="margin-top:0; color: var(--gold-500); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">
+                              <span style="font-size: 1.2rem;">🤟</span> ISL Alphabet Demo
+                          </h4>
+                          <p class="text-body" style="margin-top:0; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">Try these 1-handed Indian Sign Language alphabets:</p>
+                          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; color: var(--text-primary);">
+                              <div><strong>S:</strong> ✊ Closed Fist</div>
+                              <div><strong>D:</strong> ☝️ Only Index Up</div>
+                              <div><strong>L:</strong> 👆 'L' Shape (Index+Thumb)</div>
+                              <div><strong>V:</strong> ✌️ 'V' Shape (Index+Middle spread)</div>
+                              <div style="grid-column: span 2;"><strong>U:</strong> 🤞 Index+Middle together (no spread)</div>
+                          </div>
+                      </div>
+      
+                      <div class="output-box card" style="text-align: center; padding: 1.5rem;">
+                          <div style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.75rem; text-transform: uppercase; font-weight: bold; letter-spacing: 1px;">Recognized Sign Language</div>
+                          <div id="continuousResult" class="hindi-out" style="min-height: 4rem; display: flex; align-items: center; justify-content: center; font-family: system-ui, sans-serif; font-size: 3rem; color: var(--text-primary); background: var(--navy-950); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); padding: 0.5rem; overflow-wrap: anywhere;"></div>
+                          <div id="confidenceWarning" style="color: var(--coral-500); font-size: 0.85rem; height: 1.2rem; margin-top: 0.75rem; opacity: 0; transition: opacity 0.3s; font-weight: 500;">Low confidence &mdash; try again</div>
+                          
+                          <button id="clearCamBtn" class="btn btn-secondary" style="width: 100%; margin-top: 1rem;">Clear Text</button>
+                      </div>
+                  </div>
+              </div>
+          </section>
 
 
 
