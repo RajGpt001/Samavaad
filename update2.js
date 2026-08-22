@@ -1,57 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet" href="style.css">
-    
-    <!-- MediaPipe Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+﻿const fs = require('fs');
+let content = fs.readFileSync('about.html', 'utf-8');
 
-    <title>SamaVaad &mdash; About | The Communication Chasm</title>
-    <meta name="description" content="SamaVaad is an offline-first AI communication bridge seamlessly translating between Indian Sign Language and regional spoken languages in real time.">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤟</text></svg>">
-</head>
-<body>
-        <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="nav-logo serif">Sama<span class="vaad">Vaad</span></a>
-            <button class="menu-toggle" aria-label="Toggle menu" onclick="this.classList.toggle('open'); document.getElementById('navMenu').classList.toggle('open');">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <div id="navMenu" class="nav-links">
-                <a href="index.html" class="">Home</a>
-                <a href="about.html" class="active">About</a>
-                <a href="how-it-works.html" class="">How It Works</a>
-                <a href="hardware.html" class="">Hardware</a>
-            </div>
-        </div>
-    </nav>
-    <header>
-        <h1 class="title serif">Sama<span class="vaad">Vaad</span></h1>
-        <p class="subtitle">A working software preview of the two-way conversation loop &mdash; before the glove, this is the brain of SamaVaad, live in your browser.</p>
-        
-        <div class="flow-row">
-            <span>ISL Sign</span>
-            <span class="arrow">&rarr;</span>
-            <span>Regional Speech</span>
-            <span class="arrow">&rarr;</span>
-            <span>Spoken Reply</span>
-            <span class="arrow">&rarr;</span>
-            <span>ISL Avatar</span>
-        </div>
-    </header>
-
-        <main>
+const newMain = `    <main>
         <!-- Hero Area -->
         <header class="section" style="position: relative; overflow: hidden; text-align: center; padding: 6rem 1.5rem 4rem;">
             <!-- Abstract background graphic (inline SVG) -->
@@ -66,7 +16,7 @@
             </div>
             
             <div class="container" style="position: relative; z-index: 1;">
-                <h1 class="text-hero animate-on-scroll">The Communication Chasm</h1>
+                <h1 class="text-hero">The Communication Chasm</h1>
                 <p class="subtitle" style="margin-inline: auto;">A profound communication breakdown isolates 7.2 million deaf Indians inside their own homes.</p>
             </div>
         </header>
@@ -76,7 +26,7 @@
             <div style="display: flex; align-items: center; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 3rem;">
                 
                 <!-- Card 1 -->
-                <div class="card animate-on-scroll" style="flex: 1; min-width: 280px; text-align: center;">
+                <div class="card" style="flex: 1; min-width: 280px; text-align: center;">
                     <div style="font-size: 3rem; margin-bottom: 1.5rem;">🤟</div>
                     <h3 class="text-h3" style="margin-bottom: 1rem;">The Deaf Child</h3>
                     <p class="text-body" style="color: var(--text-muted); margin: 0;">Expresses needs, emotions, and questions fluently in Indian Sign Language (ISL), but cannot receive spoken responses in a format they understand.</p>
@@ -89,7 +39,7 @@
                 </div>
 
                 <!-- Card 2 -->
-                <div class="card animate-on-scroll" style="flex: 1; min-width: 280px; text-align: center;">
+                <div class="card" style="flex: 1; min-width: 280px; text-align: center;">
                     <div style="font-size: 3rem; margin-bottom: 1.5rem;">🗣️</div>
                     <h3 class="text-h3" style="margin-bottom: 1rem;">The Hearing Parents</h3>
                     <p class="text-body" style="color: var(--text-muted); margin: 0;">Speak fluently in regional Indian languages, but cannot interpret the child's distinct ISL signs.</p>
@@ -97,7 +47,7 @@
             </div>
 
             <!-- The Result -->
-            <div class="card animate-on-scroll" style="border-left: 4px solid var(--coral-500); background: linear-gradient(90deg, rgba(244, 63, 94, 0.08) 0%, rgba(30, 41, 59, 0) 100%); padding: 2rem 2.5rem;">
+            <div class="card" style="border-left: 4px solid var(--coral-500); background: linear-gradient(90deg, rgba(244, 63, 94, 0.08) 0%, rgba(30, 41, 59, 0) 100%); padding: 2rem 2.5rem;">
                 <p class="text-body" style="margin: 0;">
                     <strong style="color: var(--text-primary); font-size: 1.25rem; display: block; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif;">The Result:</strong> 
                     <span style="color: var(--text-primary); opacity: 0.9;">Fragmented communication reliant on guesswork and pointing, leading to severe impacts on emotional wellbeing, education, and basic healthcare access.</span>
@@ -108,40 +58,31 @@
         <!-- Problem with Existing Tech Section -->
         <section class="section container" style="padding-bottom: 6rem;">
             <div style="text-align: center; margin-bottom: 4rem;">
-                <h2 class="text-h2 heading-accent animate-on-scroll">The Problem with Existing Tech</h2>
+                <h2 class="text-h2 heading-accent">The Problem with Existing Tech</h2>
                 <p class="subtitle" style="margin-inline: auto;">Existing assistive technologies provide one-way streets, not true conversations.</p>
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 2rem;">
-                <div class="card animate-on-scroll">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+                <div class="card">
                     <div style="font-size: 2.5rem; margin-bottom: 1.5rem; display: inline-block; padding: 1rem; background: rgba(245, 158, 11, 0.1); border-radius: 1rem;">🧤</div>
                     <h4 class="text-h3" style="font-size: 1.25rem; margin-bottom: 1rem;">Wearable ASL Gloves</h4>
                     <p class="text-body" style="color: var(--text-muted); font-size: 1rem; margin: 0;">Built entirely for American Sign Language (ASL). They output in English and completely ignore the distinct grammar and handshapes of ISL.</p>
                 </div>
                 
-                <div class="card animate-on-scroll">
+                <div class="card">
                     <div style="font-size: 2.5rem; margin-bottom: 1.5rem; display: inline-block; padding: 1rem; background: rgba(245, 158, 11, 0.1); border-radius: 1rem;">💬</div>
                     <h4 class="text-h3" style="font-size: 1.25rem; margin-bottom: 1rem;">Speech-to-Text Apps</h4>
                     <p class="text-body" style="color: var(--text-muted); font-size: 1rem; margin: 0;">Tools like Live Transcribe require active internet and offer no return path for the deaf person to respond in sign.</p>
                 </div>
                 
-                <div class="card animate-on-scroll">
+                <div class="card">
                     <div style="font-size: 2.5rem; margin-bottom: 1.5rem; display: inline-block; padding: 1rem; background: rgba(245, 158, 11, 0.1); border-radius: 1rem;">📷</div>
                     <h4 class="text-h3" style="font-size: 1.25rem; margin-bottom: 1rem;">Camera-based AI</h4>
                     <p class="text-body" style="color: var(--text-muted); font-size: 1rem; margin: 0;">Suffer from severe lighting dependencies, background clutter issues, and significant privacy concerns.</p>
                 </div>
             </div>
         </section>
-    </main>
+    </main>`;
 
-        <footer class="site-footer">
-        <div class="container footer-container">
-            <div class="footer-logo serif">Sama<span class="vaad">Vaad</span></div>
-            <div class="footer-text">&middot; Offline-first architecture, simulated here for browser demo purposes</div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
-    <script src="global.js"></script>
-</body>
-</html>
+content = content.replace(/<main>[\s\S]*?<\/main>/, newMain);
+fs.writeFileSync('about.html', content, 'utf-8');

@@ -1,71 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet" href="style.css">
-    
-    <!-- MediaPipe Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+﻿const fs = require('fs');
+let content = fs.readFileSync('how-it-works.html', 'utf-8');
 
-    <title>SamaVaad &mdash; How It Works | The Infinity Loop</title>
-    <meta name="description" content="SamaVaad is an offline-first AI communication bridge seamlessly translating between Indian Sign Language and regional spoken languages in real time.">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤟</text></svg>">
-</head>
-<body>
-        <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="nav-logo serif">Sama<span class="vaad">Vaad</span></a>
-            <button class="menu-toggle" aria-label="Toggle menu" onclick="this.classList.toggle('open'); document.getElementById('navMenu').classList.toggle('open');">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <div id="navMenu" class="nav-links">
-                <a href="index.html" class="">Home</a>
-                <a href="about.html" class="">About</a>
-                <a href="how-it-works.html" class="active">How It Works</a>
-                <a href="hardware.html" class="">Hardware</a>
-            </div>
-        </div>
-    </nav>
-    <header>
-        <h1 class="title serif">Sama<span class="vaad">Vaad</span></h1>
-        <p class="subtitle">A working software preview of the two-way conversation loop &mdash; before the glove, this is the brain of SamaVaad, live in your browser.</p>
-        
-        <div class="flow-row">
-            <span>ISL Sign</span>
-            <span class="arrow">&rarr;</span>
-            <span>Regional Speech</span>
-            <span class="arrow">&rarr;</span>
-            <span>Spoken Reply</span>
-            <span class="arrow">&rarr;</span>
-            <span>ISL Avatar</span>
-        </div>
-    </header>
-
-        <main>
+const newMain = `    <main>
         <!-- Hero Area -->
         <header class="section" style="text-align: center; padding: 6rem 1.5rem 4rem;">
             <div class="container">
-                <h1 class="text-hero animate-on-scroll">The SamaVaad Infinity Loop</h1>
+                <h1 class="text-hero">The SamaVaad Infinity Loop</h1>
                 <p class="subtitle" style="margin-inline: auto;">Closing the conversational gap through continuous hardware and AI integration.</p>
             </div>
         </header>
 
         <!-- Two-Direction Overview -->
         <section class="section container" style="padding-top: 0;">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 2rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
                 
                 <!-- Direction 1 -->
-                <div class="card animate-on-scroll">
+                <div class="card">
                     <div style="font-size: 2.5rem; margin-bottom: 1rem;">🧤</div>
                     <h3 class="text-h3" style="margin-bottom: 1rem;">Direction 1: Deaf &rarr; Hearing</h3>
                     <p class="text-body" style="color: var(--text-muted); margin-bottom: 2rem;">The glove captures ISL signs, an on-device AI model converts them into a grammatically correct sentence in the hearing person's regional language, and it's spoken aloud.</p>
@@ -78,7 +28,7 @@
                 </div>
 
                 <!-- Direction 2 -->
-                <div class="card animate-on-scroll">
+                <div class="card">
                     <div style="font-size: 2.5rem; margin-bottom: 1rem;">💬</div>
                     <h3 class="text-h3" style="margin-bottom: 1rem;">Direction 2: Hearing &rarr; Deaf</h3>
                     <p class="text-body" style="color: var(--text-muted); margin-bottom: 2rem;">The hearing person speaks naturally, the AI transcribes and restructures it into ISL grammar, and an animated avatar signs the response back.</p>
@@ -96,10 +46,10 @@
         <!-- Stepper Workflow -->
         <section class="section container">
             <div style="text-align: center; margin-bottom: 3rem;">
-                <h2 class="text-h2 heading-accent animate-on-scroll">Step-by-Step Workflow</h2>
+                <h2 class="text-h2 heading-accent">Step-by-Step Workflow</h2>
             </div>
             
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 3rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3rem;">
                 
                 <!-- Steps Dir 1 -->
                 <div>
@@ -160,21 +110,21 @@
         <!-- Six Layers Grid -->
         <section class="section container">
             <div style="text-align: center; margin-bottom: 4rem;">
-                <h2 class="text-h2 heading-accent animate-on-scroll">The Six AI Layers</h2>
+                <h2 class="text-h2 heading-accent">The Six AI Layers</h2>
                 <p class="subtitle" style="margin-inline: auto;">The proprietary architecture powering true bidirectional fluency.</p>
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 2.5rem 2rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem 2rem;">
                 
                 <!-- L1 -->
-                <div class="card animate-on-scroll" style="position: relative;">
+                <div class="card" style="position: relative;">
                     <span class="pill pill-gold" style="position: absolute; top: -12px; left: 2rem;">Layer 1</span>
                     <h4 class="text-h3" style="font-size: 1.25rem; margin-top: 0.5rem; margin-bottom: 1rem;">ISL Gesture Recognition</h4>
                     <p class="text-body" style="color: var(--text-muted); font-size: 0.95rem; margin: 0;">A temporal CNN/LSTM model on-device classifies flex-sensor and motion data into ISL signs in real time, adapting to each signer's style.</p>
                 </div>
 
                 <!-- L2 -->
-                <div class="card animate-on-scroll" style="position: relative; border-color: rgba(244, 63, 94, 0.3); background: linear-gradient(180deg, var(--navy-800) 0%, rgba(244, 63, 94, 0.05) 100%);">
+                <div class="card" style="position: relative; border-color: rgba(244, 63, 94, 0.3); background: linear-gradient(180deg, var(--navy-800) 0%, rgba(244, 63, 94, 0.05) 100%);">
                     <span class="pill pill-coral" style="position: absolute; top: -12px; left: 2rem;">Layer 2</span>
                     <span class="pill pill-gold" style="position: absolute; top: -12px; right: 2rem; font-size: 0.7rem; padding: 0.1rem 0.6rem;">Core Innovation</span>
                     <h4 class="text-h3" style="font-size: 1.25rem; margin-top: 0.5rem; margin-bottom: 1rem;">Cross-Linguistic Grammar Bridge</h4>
@@ -182,28 +132,28 @@
                 </div>
 
                 <!-- L3 -->
-                <div class="card animate-on-scroll" style="position: relative;">
+                <div class="card" style="position: relative;">
                     <span class="pill pill-gold" style="position: absolute; top: -12px; left: 2rem;">Layer 3</span>
                     <h4 class="text-h3" style="font-size: 1.25rem; margin-top: 0.5rem; margin-bottom: 1rem;">Regional Language Text-to-Speech</h4>
                     <p class="text-body" style="color: var(--text-muted); font-size: 0.95rem; margin: 0;">Converts the reconstructed sentence into natural speech in the target Indian language, with voice models cached on-device for offline use.</p>
                 </div>
 
                 <!-- L4 -->
-                <div class="card animate-on-scroll" style="position: relative;">
+                <div class="card" style="position: relative;">
                     <span class="pill pill-gold" style="position: absolute; top: -12px; left: 2rem;">Layer 4</span>
                     <h4 class="text-h3" style="font-size: 1.25rem; margin-top: 0.5rem; margin-bottom: 1rem;">Speech Recognition + NLP Simplification</h4>
                     <p class="text-body" style="color: var(--text-muted); font-size: 0.95rem; margin: 0;">Transcribes the hearing person's speech and restructures it into clean ISL-compatible grammar, removing articles and tense markers.</p>
                 </div>
 
                 <!-- L5 -->
-                <div class="card animate-on-scroll" style="position: relative;">
+                <div class="card" style="position: relative;">
                     <span class="pill pill-gold" style="position: absolute; top: -12px; left: 2rem;">Layer 5</span>
                     <h4 class="text-h3" style="font-size: 1.25rem; margin-top: 0.5rem; margin-bottom: 1rem;">ISL Avatar Animation Engine</h4>
                     <p class="text-body" style="color: var(--text-muted); font-size: 0.95rem; margin: 0;">Renders the sign sequence as a smooth animated avatar using motion interpolation between signs, rather than robotic pre-recorded clips.</p>
                 </div>
 
                 <!-- L6 -->
-                <div class="card animate-on-scroll" style="position: relative;">
+                <div class="card" style="position: relative;">
                     <span class="pill pill-gold" style="position: absolute; top: -12px; left: 2rem;">Layer 6</span>
                     <h4 class="text-h3" style="font-size: 1.25rem; margin-top: 0.5rem; margin-bottom: 1rem;">Federated Personalization &amp; Context</h4>
                     <p class="text-body" style="color: var(--text-muted); font-size: 0.95rem; margin: 0;">The model fine-tunes to each user's signing style on-device (federated learning, no personal data leaves) and uses recent conversation context to resolve ambiguous signs.</p>
@@ -214,21 +164,12 @@
 
         <!-- CTA -->
         <section class="section container" style="padding-bottom: 8rem; text-align: center;">
-            <div class="card animate-on-scroll" style="background: linear-gradient(135deg, rgba(244, 63, 94, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4rem 2rem;">
-                <h3 class="text-h2 animate-on-scroll" style="margin-bottom: 1.5rem;">Curious what the physical glove looks like?</h3>
+            <div class="card" style="background: linear-gradient(135deg, rgba(244, 63, 94, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4rem 2rem;">
+                <h3 class="text-h2" style="margin-bottom: 1.5rem;">Curious what the physical glove looks like?</h3>
                 <a href="hardware.html" class="btn btn-primary" style="font-size: 1.1rem; padding: 1rem 2.5rem;">Explore the Hardware &rarr;</a>
             </div>
         </section>
-    </main>
+    </main>`;
 
-        <footer class="site-footer">
-        <div class="container footer-container">
-            <div class="footer-logo serif">Sama<span class="vaad">Vaad</span></div>
-            <div class="footer-text">&middot; Offline-first architecture, simulated here for browser demo purposes</div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
-    <script src="global.js"></script>
-</body>
-</html>
+content = content.replace(/<main>[\s\S]*?<\/main>/, newMain);
+fs.writeFileSync('how-it-works.html', content, 'utf-8');
