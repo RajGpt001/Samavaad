@@ -11,14 +11,24 @@
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar">
+        <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="nav-logo serif">Sama<span class="vaad">Vaad</span></a>
-            <div class="nav-links">
-                <a href="about.html">About</a>
-                <a href="how-it-works.html">How it Works</a>
+            <button class="menu-toggle" aria-label="Toggle menu" onclick="this.classList.toggle('open'); document.getElementById('navMenu').classList.toggle('open');">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div id="navMenu" class="nav-links">
+                <a href="index.html" class="">Home</a>
+                <a href="about.html" class="">About</a>
+                <a href="how-it-works.html" class="active">How It Works</a>
+                <a href="hardware.html" class="">Hardware</a>
             </div>
         </div>
     </nav>
@@ -66,8 +76,11 @@
 
     </main>
 
-    <footer>
-        SamaVaad &middot; Offline-first architecture, simulated here for browser demo purposes
+        <footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-logo serif">Sama<span class="vaad">Vaad</span></div>
+            <div class="footer-text">&middot; Offline-first architecture, simulated here for browser demo purposes</div>
+        </div>
     </footer>
 
     <script src="script.js"></script>

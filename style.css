@@ -153,6 +153,7 @@ h1, h2, h3, h4, h5, h6, .serif, .title, .section-title {
   top: 0;
   z-index: 100;
   backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 .nav-container {
   max-width: var(--max-width);
@@ -372,11 +373,104 @@ main {
 .scan-line { position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--gold-500); box-shadow: 0 0 15px 5px rgba(245, 158, 11, 0.4); opacity: 0; pointer-events: none; }
 .cam-frame.scanning .scan-line { opacity: 1; animation: scanAnim 1.4s linear; }
 
-footer {
-  text-align: center;
-  padding: 3rem 1rem;
-  color: var(--text-muted);
-  font-size: 0.875rem;
+
+
+
+/* Nav Link Active & Underline */
+.nav-links a {
+  position: relative;
+  padding-bottom: 2px;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background: var(--gold-500);
+  transition: width 0.3s ease;
+  border-radius: 2px;
+}
+.nav-links a.active {
+  color: var(--coral-500);
+}
+.nav-links a.active::after, .nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Mobile Menu Toggle */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+.menu-toggle span {
+  width: 24px;
+  height: 2px;
+  background: var(--text-primary);
+  transition: 0.3s;
+  border-radius: 2px;
+}
+
+/* Footer Restyling */
+.site-footer {
+  background-color: var(--navy-950);
   border-top: 1px solid rgba(255,255,255,0.05);
+  padding: 3rem 0;
   margin-top: auto;
+}
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+.footer-logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--text-primary);
+}
+.footer-logo .vaad { color: var(--coral-500); }
+.footer-text {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .menu-toggle { display: flex; }
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: rgba(11, 17, 32, 0.98);
+    flex-direction: column;
+    padding: 2rem 0;
+    gap: 2rem;
+    transform: translateY(-150%);
+    opacity: 0;
+    transition: all 0.4s ease;
+    z-index: -1;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  }
+  .nav-links.open {
+    transform: translateY(0);
+    opacity: 1;
+    z-index: 99;
+  }
+  .nav-links a::after { display: none; }
+  
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+  }
 }
