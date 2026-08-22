@@ -11,6 +11,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar">
@@ -23,8 +26,8 @@
             </div>
         </div>
     </nav>
-    <header>
-        <h1 class="title serif">Sama<span class="vaad">Vaad</span></h1>
+    <header class="section">
+        <h1 class="text-hero">Sama<span class="vaad">Vaad</span></h1>
         <p class="subtitle">A working software preview of the two-way conversation loop &mdash; before the glove, this is the brain of SamaVaad, live in your browser.</p>
         
         <div class="flow-row">
@@ -38,18 +41,17 @@
         </div>
     </header>
 
-
     <nav class="tab-nav">
-        <button class="tab-btn active" data-target="dir1">① Deaf &rarr; Hearing</button>
-        <button class="tab-btn" data-target="dir2">② Hearing &rarr; Deaf</button>
-        <button class="tab-btn" data-target="cam">③ Camera Sign Capture</button>
+        <button class="tab-btn btn active" data-target="dir1">① Deaf &rarr; Hearing</button>
+        <button class="tab-btn btn" data-target="dir2">② Hearing &rarr; Deaf</button>
+        <button class="tab-btn btn" data-target="cam">③ Camera Sign Capture</button>
     </nav>
 
-    <main>
-        <section id="dir1" class="panel active">
+    <main class="container">
+        <section id="dir1" class="panel card active">
             <div class="panel-header">
-                <span class="badge">1</span>
-                <h2>Sign to Speech</h2>
+                <span class="pill pill-gold">1</span>
+                <h2 class="heading-accent">Sign to Speech</h2>
             </div>
             <p class="panel-subtitle">Tap signs like the glove's flex sensors would register them</p>
             
@@ -62,16 +64,16 @@
                     <div id="hindiSub" class="hindi-sub"></div>
                 </div>
                 <div class="action-buttons">
-                    <button id="speakBtn" class="primary-btn" disabled>🔊 Play spoken audio</button>
-                    <button id="clearBtn" class="secondary-btn">Clear</button>
+                    <button id="speakBtn" class="btn btn-primary" disabled>🔊 Play spoken audio</button>
+                    <button id="clearBtn" class="btn btn-secondary">Clear</button>
                 </div>
             </div>
         </section>
 
-        <section id="dir2" class="panel">
+        <section id="dir2" class="panel card">
             <div class="panel-header">
-                <span class="badge coral-badge">2</span>
-                <h2>Speech to Sign</h2>
+                <span class="pill pill-coral">2</span>
+                <h2 class="heading-accent">Speech to Sign</h2>
             </div>
             <p class="panel-subtitle">Speak naturally &mdash; watch it simplify into ISL structure</p>
             
@@ -87,10 +89,10 @@
             </div>
         </section>
 
-        <section id="cam" class="panel">
+        <section id="cam" class="panel card">
             <div class="panel-header">
-                <span class="badge gold-badge">📷</span>
-                <h2>Camera Sign Capture</h2>
+                <span class="pill pill-gold">📷</span>
+                <h2 class="heading-accent">Camera Sign Capture</h2>
             </div>
             <p class="panel-subtitle">Stand in frame, hold a sign, hit capture &mdash; the recognizer classifies it live</p>
             
@@ -116,9 +118,9 @@
                 </div>
 
                 <div class="action-buttons" style="width: 100%; max-width: 420px; display: flex; gap: 1rem;">
-                    <button id="camStartBtn" class="primary-btn">Turn on camera</button>
-                    <button id="camStopBtn" class="secondary-btn" style="display: none;">Stop camera</button>
-                    <button id="clearCamBtn" class="secondary-btn">Clear Text</button>
+                    <button id="camStartBtn" class="btn btn-primary">Turn on camera</button>
+                    <button id="camStopBtn" class="btn btn-secondary" style="display: none;">Stop camera</button>
+                    <button id="clearCamBtn" class="btn btn-secondary">Clear Text</button>
                 </div>
 
                 <div class="output-box" style="width: 100%; max-width: 420px; text-align: center;">
