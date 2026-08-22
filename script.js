@@ -346,7 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return "B";
             }
 
-            return null; // Don't fall back to 1-handed if 2 hands are visible but no match
+            return "AMBIGUOUS"; // Hands detected but gesture ambiguous
         }
 
         // --- ONE HANDED SIGNS ---
@@ -354,7 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const landmarks = multiHandLandmarks[0];
             
             const isUpright = landmarks[0].y > landmarks[9].y;
-            if (!isUpright) return null;
+            if (!isUpright) return "AMBIGUOUS";
 
             let isIndexOpen = landmarks[8].y < landmarks[5].y;
             let isMiddleOpen = landmarks[12].y < landmarks[9].y;
@@ -403,7 +403,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        return null;
+        return "AMBIGUOUS";
     }
 
     function speakText(text) {
@@ -435,10 +435,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 drawLandmarks(canvasCtx, landmarks, {color: '#D9614F', lineWidth: 2, radius: 3});
             }
 
-            // Classify ISL Alphabet
+                        // Classify ISL Alphabet
             const currentSign = classifyISLAlphabet(results.multiHandLandmarks);
+            const warningEl = document.getElementById('confidenceWarning');
             
-            if (currentSign) {
+            if (currentSign === "AMBIGUOUS") {
+                if (warningEl) warningEl.style.opacity = '1';
+                lastDetectedSign = null;
+                framesHeld = 0;
+            } else if (currentSign) {
+                if (warningEl) warningEl.style.opacity = '0';
+                
                 if (currentSign === lastDetectedSign) {
                     framesHeld++;
                     if (framesHeld === HOLD_FRAMES_REQUIRED) {
@@ -449,6 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     framesHeld = 0;
                 }
             } else {
+                if (warningEl) warningEl.style.opacity = '0';
                 lastDetectedSign = null;
                 framesHeld = 0;
             }
