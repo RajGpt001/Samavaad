@@ -470,6 +470,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Step 3: Start Camera
     camStartBtn.onclick = () => {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            alert("Camera access blocked.\n\nModern browsers disable camera access on unsecure (HTTP) connections for privacy. Please load this site using HTTPS.");
+            camOverlay.innerHTML = '<span style="color: var(--coral-500); font-size: 1rem; text-align: center; padding: 0 1rem;">Camera requires a secure HTTPS connection.</span>';
+            return;
+        }
         camOverlay.textContent = 'Loading AI Model...';
         camStartBtn.disabled = true;
 
